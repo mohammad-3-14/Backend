@@ -1,6 +1,4 @@
 const mongoose = require("mongoose");
-const slugify = require("slugify");
-
 
 const postSchema = new mongoose.Schema(
   {
@@ -34,14 +32,6 @@ const postSchema = new mongoose.Schema(
   },
   { timestamps: true }
 );
-
-postSchema.pre("save", function (next) {
-  if (!this.slug) {
-    this.slug = slugify(this.title, { lower: true });
-  }
-  this.slug = slugify(this.slug, { lower: true });
-  next();
-});
 
 const post = mongoose.model("post", postSchema);
 
