@@ -1,4 +1,6 @@
 const mongoose = require("mongoose");
+const slugify = require("slugify");
+
 
 const postSchema = new mongoose.Schema(
   {
@@ -21,7 +23,7 @@ const postSchema = new mongoose.Schema(
     thumbnail: {
       type: String,
     },
-    slug: { type: String, required: true, unique: true }, // نامک
+    slug: { type: String, unique: true },
 
     audioUrl: {
       type: String,
@@ -29,14 +31,6 @@ const postSchema = new mongoose.Schema(
     videoUrl: {
       type: String,
     },
-    // createdAt: {
-    //   type: Date,
-    //   default: Date.now,
-    // },
-    // updatedAt: {
-    //   type: Date,
-    //   default: Date.now,
-    // },
   },
   { timestamps: true }
 );
@@ -45,7 +39,7 @@ postSchema.pre("save", function (next) {
   if (!this.slug) {
     this.slug = slugify(this.title, { lower: true });
   }
-
+  this.slug = slugify(this.slug, { lower: true });
   next();
 });
 
