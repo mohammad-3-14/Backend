@@ -33,6 +33,6 @@ const postSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-const post = mongoose.model("post", postSchema);
+const Post = mongoose.model("Post", postSchema);
 
-module.exports = post;
+module.exports = Post;
