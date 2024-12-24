@@ -1,5 +1,5 @@
 const slugify = require("slugify");
-const PostModel = require("../model/postModel");
+const PostModel = require("../models/postModel");
 
 const getAllPosts = async (req, res, next) => {
   try {
