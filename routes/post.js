@@ -1,5 +1,7 @@
 const express = require("express");
 const router = express.Router();
+const { authenticate } = require("../middlewares/authenticate");
+const { authorize } = require("../middlewares/authorize");
 
 const {
   postValidationSchema,
@@ -18,9 +20,17 @@ const {
 router.get("/", getAllPosts);
 router.get("/:slug", getPostBySlug);
 
-router.post("/", validatePost(postValidationSchema), createPost);
+router.post(
+  "/",
+  authenticate,
+  authorize("admin"),
+  validatePost(postValidationSchema),
+  createPost
+);
 router.put(
   "/:slug",
+  authenticate,
+  authorize("admin"),
   validateUpdatePost(updatePostValidationSchema),
   updatePost
 );
