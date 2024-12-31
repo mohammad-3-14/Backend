@@ -29,6 +29,11 @@ const postSchema = new mongoose.Schema(
     videoUrl: {
       type: String,
     },
+    status: {
+      type: String,
+      enum: ["draft", "published"],
+      default: "draft",
+    },
   },
   { timestamps: true }
 );

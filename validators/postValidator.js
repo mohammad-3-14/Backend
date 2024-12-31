@@ -33,6 +33,14 @@ const postValidationSchema = yup.object().shape({
 
   slug: yup.string(),
 
+  status: yup
+    .string()
+    .oneOf(
+      ["draft", "published"],
+      "وضعیت مقاله معتبر نیست، باید 'draft' یا 'published' باشد"
+    )
+    .default("draft"),
+
   audioUrl: yup
     .string()
     .nullable()
@@ -115,6 +123,14 @@ const updatePostValidationSchema = yup.object().shape({
           .url("آدرس فایل صوتی باید معتبر باشد"),
       otherwise: () => yup.string().nullable(),
     }),
+
+  status: yup
+    .string()
+    .oneOf(
+      ["draft", "published"],
+      "وضعیت مقاله معتبر نیست، باید 'draft' یا 'published' باشد"
+    )
+    .default("draft"),
 
   videoUrl: yup
     .string()
