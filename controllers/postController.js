@@ -13,12 +13,12 @@ const getAllPosts = async (req, res, next) => {
       .skip(skip)
       .limit(limit)
       .sort({ [sort]: order });
-    const totalPosts = await PostModel.countDocuments();
+    const total = await PostModel.countDocuments();
 
     res.status(200).json({
       message: "مقالات با موفیت دریافت شد",
       data: posts,
-      totalPosts,
+      total,
       page,
       perPage: limit,
     });
