@@ -6,10 +6,14 @@ const getAllPosts = async (req, res, next) => {
     const page = parseInt(req.query.page) || 1;
     const limit = parseInt(req.query.limit) || 10;
     const skip = (page - 1) * limit;
+    const sort = req.query.sort || "createdAt";
+    const order = req.query.order === "asc" ? 1 : -1;
 
-    const posts = await PostModel.find().skip(skip).limit(limit);
+    const posts = await PostModel.find()
+      .skip(skip)
+      .limit(limit)
+      .sort({ [sort]: order });
     const totalPosts = await PostModel.countDocuments();
-    const talPages = Math.ceil(totalPosts / limit);
 
     res.status(200).json({
       message: "مقالات با موفیت دریافت شد",
